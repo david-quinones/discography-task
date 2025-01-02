@@ -31,7 +31,7 @@ public class ArtistService {
     public ArtistDto findById(Long id){
         return artistRepository.findById(id)
                 .map(artist -> {
-                    return createObject(artist);
+                    return createArtistDto(artist);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found."));
     }
@@ -40,7 +40,7 @@ public class ArtistService {
         return artistRepository.findAll()
                 .stream()
                 .map(artist -> {
-                    return createObject(artist);
+                    return createArtistDto(artist);
                 }).collect(Collectors.toList());
     }
 
@@ -56,7 +56,7 @@ public class ArtistService {
             artUpdate.set(art);
         }, ()-> {throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found for your update");});
 
-        return createObject(artUpdate.get());
+        return createArtistDto(artUpdate.get());
 
     }
 
@@ -67,7 +67,7 @@ public class ArtistService {
     }
 
 
-    private ArtistDto createObject (Artist artist){
+    private ArtistDto createArtistDto(Artist artist){
 
         return ArtistDto.builder()
                 .id(artist.getId())

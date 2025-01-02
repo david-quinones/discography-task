@@ -112,9 +112,4 @@ public class LPService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-
-
-
-
 }
