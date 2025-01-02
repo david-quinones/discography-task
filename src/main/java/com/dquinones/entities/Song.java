@@ -1,5 +1,6 @@
 package com.dquinones.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Song {
     private String name;
 
     @ManyToOne(targetEntity = LP.class)
+    @JsonBackReference
     private LP lp;
 
     @ManyToMany(targetEntity = Author.class,fetch = FetchType.LAZY)

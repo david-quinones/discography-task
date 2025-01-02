@@ -22,13 +22,6 @@ public class ArtistService {
     private IArtistRepository artistRepository;
 
 
-    /*
-    * CRUD
-    *
-    * ArtistDTO with complete specification
-    *
-    * */
-
     // Create
     public Artist create(Artist artist) {
         return artistRepository.save(artist);

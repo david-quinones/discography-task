@@ -1,5 +1,7 @@
 package com.dquinones.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,6 +26,7 @@ public class Artist {
     private String description;
 
     @OneToMany(targetEntity = LP.class, fetch = FetchType.LAZY, mappedBy = "artist")
+    @JsonBackReference
     private List<LP> lps;
 
     public Long getId() {

@@ -1,6 +1,7 @@
 package com.dquinones.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,10 @@ public class LP {
     private String description;
 
     @ManyToOne(targetEntity = Artist.class) // FK Artist
+    @JsonManagedReference
     private Artist artist;
 
-    @OneToMany(targetEntity = Song.class, fetch = FetchType.LAZY, mappedBy = "lp")
+    @OneToMany(targetEntity = Song.class, fetch = FetchType.LAZY, mappedBy = "lp", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Song> songs;
 }
