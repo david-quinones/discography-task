@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "79756429-83fa-4c58-9443-622179a1caad",
+		"name": "CodiTramuntana - Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "8729266"
+	},
+	"item": [
+		{
+			"name": "Crud Artist",
+			"item": [
+				{
+					"name": "Get All Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/artist"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/artist/7"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"David\",\r\n    \"description\" : \"Exemple Artist post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/artist"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"David Quiñones\",\r\n    \"description\" : \"Exemple Artist post\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/artist/6"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/api/artist/7"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crud LP",
+			"item": [
+				{
+					"name": "Create LP With Song",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"LP Test POST 6\",\r\n    \"description\": \"LP for insert 6\",\r\n    \"artistId\": 2,\r\n    \"songs\": [\r\n        {\r\n            \"name\": \"Song 2\",\r\n            \"authors\": [\r\n                1,\r\n                2\r\n            ]\r\n        },\r\n        {\r\n            \"name\": \"Song ABC\",\r\n            \"authors\": [\r\n                7\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/lp"
+					},
+					"response": []
+				},
+				{
+					"name": "EDIT LP",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "       {\r\n        \"name\": \"El Espíritu del Vino\",\r\n        \"description\": \"Tercer álbum de estudio de la banda, lanzado en 1993.\",\r\n        \"artistId\": 3\r\n       }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/api/lp/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All LP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/lp"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete LP WITH SONG",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/api/lp"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All LP for Artist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/lp/artist?nameArtist=kimba",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"lp",
+								"artist"
+							],
+							"query": [
+								{
+									"key": "nameArtist",
+									"value": "kimba"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

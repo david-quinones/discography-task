@@ -23,7 +23,7 @@ public class LP {
     private String description;
 
     @ManyToOne(targetEntity = Artist.class) // FK Artist
-    @JsonManagedReference
+    @JsonBackReference
     private Artist artist;
 
     @OneToMany(targetEntity = Song.class, fetch = FetchType.LAZY, mappedBy = "lp", cascade = CascadeType.ALL, orphanRemoval = true)
