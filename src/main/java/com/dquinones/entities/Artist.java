@@ -1,8 +1,6 @@
 package com.dquinones.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Artist {
 
     @Id
@@ -29,8 +31,9 @@ public class Artist {
     private String description;
 
     @OneToMany(targetEntity = LP.class, fetch = FetchType.LAZY, mappedBy = "artist")
-    @JsonManagedReference
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    //@JsonManagedReference
+    //@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonIgnore
     private List<LP> lps;
 
     public void setId(Long id) {
