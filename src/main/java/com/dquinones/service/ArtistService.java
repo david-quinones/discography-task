@@ -62,13 +62,12 @@ public class ArtistService {
 
     // Delete
     public ResponseEntity<?> delete(Long id) {
-        artistRepository.delete(artistRepository.findById(id).orElseThrow());
+        artistRepository.delete(artistRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found.")));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     private ArtistDto createArtistDto(Artist artist){
-
         return ArtistDto.builder()
                 .id(artist.getId())
                 .name(artist.getName())

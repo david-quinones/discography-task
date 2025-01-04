@@ -38,7 +38,7 @@ public class LPService {
         List<Song> songList = new ArrayList<>();
 
         // Comprovar que l'artista existeix
-        Artist artistExisteix = artistRepository.findById(lpDto.getArtistId()).orElseThrow(() -> new RuntimeException("Artist not found"));
+        Artist artistExisteix = artistRepository.findById(lpDto.getArtistId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
 
         // Recorrem cada canço i cada autor, comprovant que els autors existeixen
         for(SongDto song : lpDto.getSongs()) {
@@ -47,7 +47,7 @@ public class LPService {
             Song song1 = new Song();
 
             for(Long idAuthor : song.getAuthors()) {
-                Author author = authorRepository.findById(idAuthor).orElseThrow(() -> new RuntimeException("Artist not found"));
+                Author author = authorRepository.findById(idAuthor).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
                 authors.add(author);
             }
 
@@ -77,7 +77,7 @@ public class LPService {
 
     // Read
     public List<LP> findByArtistName(String nameArtist) {
-        Artist artist = artistRepository.findByNameIgnoreCase(nameArtist).orElseThrow(() -> new RuntimeException("Artist not found"));
+        Artist artist = artistRepository.findByNameIgnoreCase(nameArtist).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
         return lpRespository.findByArtist(artist);
     }
 
@@ -91,7 +91,7 @@ public class LPService {
             // assignem objecte
             lpUpdate.set(p);
             // comprovem si existeix l'artista
-            Artist a = artistRepository.findById(lp.getArtistId()).orElseThrow(() -> new RuntimeException("Artist not found"));
+            Artist a = artistRepository.findById(lp.getArtistId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
             // actualizem l'objecte amb l'artista
             lpUpdate.get().setArtist(a);
             // actualitzem nom i descripcio
@@ -108,7 +108,7 @@ public class LPService {
 
     // Delete
     public ResponseEntity<?> delete(Long id) {
-        lpRespository.delete(lpRespository.findById(id).orElseThrow());
+        lpRespository.delete(lpRespository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "LP not found") ));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
