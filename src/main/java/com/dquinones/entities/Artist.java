@@ -8,8 +8,13 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Entity class representing an Artist.
+ * The class is annotated with Lombok, Jackson, Validations and JPA.
+ *
+ */
 
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -31,24 +36,8 @@ public class Artist {
     private String description;
 
     @OneToMany(targetEntity = LP.class, fetch = FetchType.LAZY, mappedBy = "artist")
-    //@JsonManagedReference
-    //@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+
     @JsonIgnore
     private List<LP> lps;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLps(List<LP> lps) {
-        this.lps = lps;
-    }
 }

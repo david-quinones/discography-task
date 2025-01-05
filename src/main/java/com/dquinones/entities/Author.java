@@ -9,6 +9,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity class representing an Author.
+ * The class is annotated with Lombok and JPA.
+ *
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

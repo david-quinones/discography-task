@@ -1,13 +1,18 @@
 package com.dquinones.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
+/**
+ * Entity class representing an LP.
+ * The class is annotated with Lombok, Jackson and JPA.
+ *
+ */
 
 @Data
 @AllArgsConstructor
@@ -26,8 +31,7 @@ public class LP {
     private String name;
     private String description;
 
-    @ManyToOne(targetEntity = Artist.class) // FK Artist
-    //@JsonBackReference
+    @ManyToOne(targetEntity = Artist.class)
     private Artist artist;
 
     @OneToMany(targetEntity = Song.class, fetch = FetchType.LAZY, mappedBy = "lp", cascade = CascadeType.ALL, orphanRemoval = true)

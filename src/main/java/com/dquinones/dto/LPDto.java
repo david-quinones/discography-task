@@ -6,6 +6,14 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Data Transfer Objet for LP
+ *
+ * This class is used to transfer LP data between processes.
+ * Contains Lombok annotations and Builder pattern.
+ *
+ */
+
 @Data
 @Builder
 public class LPDto {

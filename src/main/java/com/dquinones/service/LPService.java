@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Service class for managing LP records.
+ */
+
 @Service
 public class LPService {
 
@@ -32,36 +36,35 @@ public class LPService {
     ILPRepository lpRespository;
 
 
-    // Create
+    /**
+     * Method to create a new LP. Check if the artist and authors in the songs exist before proceeding to save the record in the database.
+     * @param lpDto Data transfer Object LP details.
+     * @return create LP entity.
+     * @throws ResponseStatusException if artists or author not founf.
+     */
     public LP crearLp(LPDto lpDto){
         LP lp = new LP();
         List<Song> songList = new ArrayList<>();
 
-        // Comprovar que l'artista existeix
         Artist artistExisteix = artistRepository.findById(lpDto.getArtistId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
 
-        // Recorrem cada canço i cada autor, comprovant que els autors existeixen
         for(SongDto song : lpDto.getSongs()) {
 
             List<Author> authors = new ArrayList<>();
             Song song1 = new Song();
 
             for(Long idAuthor : song.getAuthors()) {
-                Author author = authorRepository.findById(idAuthor).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
+                Author author = authorRepository.findById(idAuthor).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
                 authors.add(author);
             }
 
-            // Complimentem l'objecte Song
             song1.setLp(lp);
             song1.setName(song.getName());
             song1.setAuthors(authors);
 
-            // afegim la canço al llista de cançons
             songList.add(song1);
-
         }
 
-        // creem i guardem l'objecte LP
         lp.setName(lpDto.getName());
         lp.setDescription(lpDto.getDescription());
         lp.setArtist(artistExisteix);
@@ -70,35 +73,44 @@ public class LPService {
         return lpRespository.save(lp);
     }
 
-    // Read
+    /**
+     * Obtain all LP
+     * @return List of all LP entities.
+     */
     public List<LP> findAll(){
         return lpRespository.findAll();
     }
 
-    // Read
+    /**
+     * Obtain an LPs by artist name.
+     * @param nameArtist Name of artist
+     * @return List of LP entities associated with the given artist name.
+     * @throws ResponseStatusException if the artist not found.
+     */
     public List<LP> findByArtistName(String nameArtist) {
         Artist artist = artistRepository.findByNameIgnoreCase(nameArtist).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
         return lpRespository.findByArtist(artist);
     }
 
-    // Update (name, description, artist)
+    /**
+     * Update an existing LP. We only update the LP fields (Name, Descripction and Artist).
+     * @param id of the LP to update.
+     * @param lp Data transfer objet contains updated lp detail.
+     * @return The update LP entity.
+     * @throws ResponseStatusException if the lp or artist not found.
+     */
     public LP update(Long id, LPDto lp){
 
         AtomicReference<LP> lpUpdate = new AtomicReference<>();
 
         lpRespository.findById(id).ifPresentOrElse(p -> {
 
-            // assignem objecte
             lpUpdate.set(p);
-            // comprovem si existeix l'artista
             Artist a = artistRepository.findById(lp.getArtistId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found"));
-            // actualizem l'objecte amb l'artista
             lpUpdate.get().setArtist(a);
-            // actualitzem nom i descripcio
             lpUpdate.get().setName(lp.getName());
             lpUpdate.get().setDescription(lp.getDescription());
 
-            // actualizatem objecte
             lpRespository.save(lpUpdate.get());
 
         }, () -> {throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "LP not found for update");});
@@ -106,7 +118,12 @@ public class LPService {
         return lpUpdate.get();
     }
 
-    // Delete
+    /**
+     * Delete an LP and its songs by their Id
+     * @param id of the LP to delete.
+     * @return ResponseEntity indicating the result operation.
+     * @throws ResponseStatusException if LP not exists.
+     */
     public ResponseEntity<?> delete(Long id) {
         lpRespository.delete(lpRespository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "LP not found") ));
         return new ResponseEntity<>(HttpStatus.OK);

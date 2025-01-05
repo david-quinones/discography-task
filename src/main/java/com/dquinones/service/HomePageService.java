@@ -2,12 +2,14 @@ package com.dquinones.service;
 
 import com.dquinones.dto.HomePageLPDto;
 import com.dquinones.entities.Author;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing Home Page.
+ */
 @Service
 public class HomePageService {
 
@@ -17,7 +19,14 @@ public class HomePageService {
         this.lpService = lpService;
     }
 
+    /**
+     * Method that obtains all the LPs in the system, goes through each LP to extract, id, name, artistName, the number of songs
+     * and goes through the different songs to extract the authors, making a distinct and concatenating them with ','
+     *
+     * @return Data transfer objetc HomePage (LP)
+     */
     public List<HomePageLPDto> getAllHomePage(){
+
         return lpService.findAll().stream().map(lp -> {
             return HomePageLPDto.builder()
                     .id(lp.getId())

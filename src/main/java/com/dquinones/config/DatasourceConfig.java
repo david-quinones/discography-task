@@ -7,13 +7,20 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 /**
- * Classe per configurar la cadena de connexió a la base de dades
+ * Class to configure the database connection.
  *
  */
 
 @Configuration
 public class DatasourceConfig {
 
+    /**
+     * Configure and returns the data source for app
+     * <p>
+     * Url and driverClassNAme has to be the same as application.properties
+     *
+     * @return configured dataSource
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

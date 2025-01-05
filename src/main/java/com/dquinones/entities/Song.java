@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * Entity class representing a Song.
+ * The class is annotated with Lombok, Jackson and JPA.
+ *
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
