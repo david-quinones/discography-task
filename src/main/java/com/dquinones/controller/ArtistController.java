@@ -44,7 +44,6 @@ public class ArtistController {
     @Operation(
             summary = "Create a new Artist",
             description = "Method to create a new Artist in the system.",
-            //tags = {"artist, coditramuntana"},
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "",
                     required = true,

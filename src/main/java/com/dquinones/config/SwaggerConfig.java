@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @OpenAPIDefinition(
         info = @Info(
-                title = "CodiTramuntana Discography Task",
+                title = "Discography Task",
                 description = "Api per gestionar Artistes i LP",
                 version = "1.0.0"
         ),
